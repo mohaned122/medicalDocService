@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <title>Ordonnance Médicale</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        #entete {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            height: 200px;
+        }
+
+        #table-ordonnance {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #table-ordonnance th, #table-ordonnance td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        #table-ordonnance th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        #table-ordonnance tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #table-ordonnance tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        #footer {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+        }
+
+        #download-btn {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #download-btn button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #download-btn button:hover {
+            background-color: #45a049;
+        }
+        #consultation {
+            padding: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #entete  img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="entete">
+    <img th:src="@{https://pbs.twimg.com/profile_images/1776825548565528576/CPtd9OWd_400x400.jpg}" alt="ordenance logo">
+</div>
+<div id="consultation">
+    <div>Docteur: <span th:text="${ordonnance.medecin}">Dr. John Doe</span></div>
+    <div>Patient: <span th:text="${ordonnance.patient}">Alice Smith</span></div>
+</div>
+<hr>
+<table id="table-ordonnance">
+    <thead>
+    <tr>
+        <th>Médicament</th>
+        <th>prix</th>
+        <th>cause</th>
+        <th>dosaige (remplir par le medecin manuellement)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medicament : ${ordonnance.medicamentList}">
+        <td th:text="${medicament.nom}">Paracétamol</td>
+        <td th:text="${medicament.dosage}">500mg</td>
+        <td th:text="${medicament.forme}">3 fois par jour</td>
+        <td th:text="${medicament.posologie}">3 par jour</td>
+    </tr>
+    </tbody>
+</table>
+
+<div id="download-btn">
+    <button id="download">Télécharger l'ordonnance</button>
+</div>
+
+<div id="footer">
+    <span th:text="${ordonnance.getDate()}">3 par jour</span>
+</div>
+
+<script>
+    document.getElementById("download").addEventListener("click", function () {
+        window.print();
+    });
+</script>
+
+</body>
+</html>

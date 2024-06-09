@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
+    <title>Certificat Médical</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        #entete {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            height: 200px;
+        }
+        .sig {
+            font-family: 'Segoe Script', cursive;
+            font-size: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #000;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 5px;
+        }
+        #entete  img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="entete">
+        <img th:src="@{https://pbs.twimg.com/profile_images/1776825548565528576/CPtd9OWd_400x400.jpg}" alt="ordenance logo">
+    </div>
+    <div class="container">
+        <h1>Certificat Médical</h1>
+        <p>Je soussigné(e) <span th:text="${certificate.docteur}">docteur</span>, docteur en médecine, certifie que monsieur/madame:</p>
+        <h2><span th:text="${certificate.patient}">patient</span>,</h2>
+        <p>Né(e) le <span th:text="${certificate.naissance}"></span>,</p>
+        <p>a été examiné(e) ce jour et présente les symptômes suivants :</p>
+        <p th:text="${certificate.symptomes}">[Description des symptômes]</p>
+        <p>Je recommande que le patient s'abstienne de <span th:text="${certificate.activite}"></span>, et lui prescris le traitement suivant :</p>
+        <p th:text="${certificate.traitement}">[Description du traitement]</p>
+        <div class="footer">
+            <p>Fait à <span th:text="${certificate.cabinet}"></span>, le <span th:text="${certificate.consultation}"></span></p>
+            <p class="sig" th:text="${certificate.docteur}">Signature du médecin</p>
+        </div>
+    </div>
+    <!-- Bouton de téléchargement -->
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="#" id="downloadLink" download="certificat_medical.pdf" onclick="downloadPdf()">Télécharger</a>
+    </div>
+
+    <script>
+        function downloadPdf() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
